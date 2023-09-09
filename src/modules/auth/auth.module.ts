@@ -11,7 +11,6 @@ import { PubSubModule } from '@/shared/graphql/pubsub.module';
 import { UsersModule } from '../user/users.module';
 
 import { GoogleStrategy } from './strategy/google.strategy';
-import { AuthController } from './auth.controller';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
@@ -46,6 +45,5 @@ import { PasswordService } from './password.service';
     GqlAuthGuard,
   ],
   exports: [AuthService, WsGuard],
-  controllers: [AuthController],
 })
 export class AuthModule {}

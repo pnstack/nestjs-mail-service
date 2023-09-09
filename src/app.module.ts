@@ -12,6 +12,7 @@ import { UsersModule } from '@/modules/user/users.module';
 import { RoleModule } from './modules/role/role.module';
 import { GraphQLModule } from './shared/graphql';
 import { PrismaModule } from './shared/prisma';
+import { MailModule } from './modules/mail/mail.module';
 
 @Module({
   imports: [
@@ -19,20 +20,13 @@ import { PrismaModule } from './shared/prisma';
     ScheduleModule.forRoot(),
     PrismaModule,
     GraphQLModule,
-    BullModule.forRoot({
-      redis: {
-        host: process.env.REDIS_HOST || 'localhost',
-        port: parseInt(process.env.REDIS_PORT) || 6379,
-        username: process.env.REDIS_USERNAME || '',
-        password: process.env.REDIS_PASSWORD || '',
-      },
-    }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
     AuthModule,
     UsersModule,
     RoleModule,
+    MailModule
   ],
   controllers: [],
   providers: [],

@@ -1,7 +1,6 @@
 import { AppModule } from '@/app.module';
 import type { NestConfig } from '@/common/configs/config.interface';
 import { HttpExceptionFilter } from '@/common/filters/HttpExceptions.filter';
-import { setupSocket } from '@/common/socket/socket';
 import { setupSwagger } from '@/common/swagger';
 import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
@@ -24,7 +23,6 @@ async function bootstrap() {
 
   await setupPrisma(app);
   await setupSwagger(app);
-  await setupSocket(app);
 
   // Listen port
   const configService = app.get(ConfigService);
