@@ -13,6 +13,7 @@ import { RoleModule } from './modules/role/role.module';
 import { GraphQLModule } from './shared/graphql';
 import { PrismaModule } from './shared/prisma';
 import { MailModule } from './modules/mail/mail.module';
+import { MailServiceModule } from './shared/mail-service/mail-service.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { MailModule } from './modules/mail/mail.module';
     AuthModule,
     UsersModule,
     RoleModule,
-    MailModule
+    MailModule,
+    MailServiceModule
   ],
   controllers: [],
   providers: [],
