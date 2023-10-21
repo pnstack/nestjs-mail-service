@@ -1,5 +1,4 @@
 import { setupMicroservice } from './common/microservices';
-import { setupPrisma } from './shared/prisma';
 import { AppModule } from '@/app.module';
 import type { NestConfig } from '@/common/configs/config.interface';
 import { HttpExceptionFilter } from '@/common/filters/HttpExceptions.filter';
@@ -25,7 +24,6 @@ async function bootstrap() {
 
   const AMQP_URL = configService.get('AMQP_URL');
 
-  await setupPrisma(app);
   await setupSwagger(app);
   if (AMQP_URL) {
     await setupMicroservice(app);

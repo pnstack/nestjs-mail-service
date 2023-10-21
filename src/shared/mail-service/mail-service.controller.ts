@@ -1,8 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { MailServiceService } from './mail-service.service';
-import { ApiTags } from '@nestjs/swagger';
 import { SendMailDto } from './dtos/send-mail.dto';
+import { MailServiceService } from './mail-service.service';
+import { ResponseInterceptor } from '@/common/interceptors/response.interceptor';
+import { Body, Controller, Get, Post, UseInterceptors } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@UseInterceptors(ResponseInterceptor)
+@ApiBearerAuth()
 @ApiTags('MailService')
 @Controller('mail-service')
 export class MailServiceController {

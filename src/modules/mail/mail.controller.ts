@@ -1,11 +1,17 @@
+import { ResponseInterceptor } from '@/common/interceptors/response.interceptor';
 import { SendMailDto } from './dtos/send-mail.dto';
 import { MailService } from './mail.service';
-import { Body, Controller, Post } from '@nestjs/common';
-import { Ctx, MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
-import { ApiTags } from '@nestjs/swagger';
+import { JwtGuard } from '@/common/guards';
 import { sleep } from '@/utils/index';
+import { Body, Controller, Post, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Ctx, MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+
+@UseInterceptors(ResponseInterceptor)
+@ApiBearerAuth()
 @ApiTags('Mail')
+@UseGuards(JwtGuard)
 @Controller('mail')
 export class MailController {
   constructor(protected readonly mailService: MailService) {}
