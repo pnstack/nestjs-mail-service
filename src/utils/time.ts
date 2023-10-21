@@ -22,3 +22,4 @@ export const getDateFormatByTimestamps = (timestamp: number, format: string) => 
 export const getCurrentTimestampUtc = () => {
   return moment().utc(true).unix();
 };
+

@@ -1,16 +1,20 @@
-import { MailerModule } from '@nestjs-modules/mailer';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { Module } from '@nestjs/common';
-import { MailService } from './mail.service';
-import { join } from 'path';
-import { BullModule } from '@nestjs/bull';
-import { MAIL_QUEUE } from 'src/common/constants';
 import { MailController } from './mail.controller';
 import { MailProcessor } from './mail.prosessor';
+import { MailService } from './mail.service';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { BullModule } from '@nestjs/bull';
+import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { join } from 'path';
+import { MAIL_QUEUE } from 'src/common/constants';
+
 
 @Module({
   imports: [
+    BullModule.registerQueue({
+      name: MAIL_QUEUE,
+    }),
     MailerModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {

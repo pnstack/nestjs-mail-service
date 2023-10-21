@@ -1,26 +1,15 @@
+import { AuthService } from './auth.service';
+import { PasswordService } from './password.service';
+import { JwtStrategy } from './strategy/jwt.strategy';
+import { SecurityConfig } from '@/common/configs/config.interface';
 import { Global, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
-import { SecurityConfig } from '@/common/configs/config.interface';
-import { GqlAuthGuard } from '@/common/guards';
-import { WsGuard } from '@/common/guards/ws/ws.guard';
-import { PubSubModule } from '@/shared/graphql/pubsub.module';
-
-import { UsersModule } from '../user/users.module';
-
-import { GoogleStrategy } from './strategy/google.strategy';
-import { AuthResolver } from './auth.resolver';
-import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
-import { PasswordService } from './password.service';
-
 @Global()
 @Module({
   imports: [
-    PubSubModule,
-    UsersModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => {
@@ -35,15 +24,7 @@ import { PasswordService } from './password.service';
       inject: [ConfigService],
     }),
   ],
-  providers: [
-    AuthService,
-    JwtStrategy,
-    PasswordService,
-    WsGuard,
-    GoogleStrategy,
-    AuthResolver,
-    GqlAuthGuard,
-  ],
-  exports: [AuthService, WsGuard],
+  providers: [AuthService, JwtStrategy, PasswordService],
+  exports: [AuthService],
 })
 export class AuthModule {}
