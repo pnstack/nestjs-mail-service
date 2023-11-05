@@ -1,13 +1,10 @@
-import { JwtGuard } from '@/common/guards';
 import { SendMailDto } from './dtos/send-mail.dto';
 import { MailServiceService } from './mail-service.service';
+import { JwtGuard } from '@/common/guards';
 import { ResponseInterceptor } from '@/common/interceptors/response.interceptor';
 import { Body, Controller, Get, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-@UseInterceptors(ResponseInterceptor)
-@ApiBearerAuth()
-@UseGuards(JwtGuard)
 @ApiTags('MailService')
 @Controller('mail-service')
 export class MailServiceController {

@@ -1,12 +1,12 @@
+import { SendMailDto } from './dtos/send-mail.dto';
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { SendMailDto } from './dtos/send-mail.dto';
 
 @Injectable()
 export class MailServiceService implements OnModuleInit {
   constructor(
     @Inject('MAIL_SERVICE')
-    private readonly mailService: ClientProxy,
+    private readonly mailService: ClientProxy
   ) {}
   async onModuleInit() {
     try {
@@ -23,7 +23,7 @@ export class MailServiceService implements OnModuleInit {
           next: (result) => {
             console.log(
               '🚀 ~ file: mail-service.service.ts:34 ~ MailServiceService ~ .subscribe ~ result:',
-              result,
+              result
             );
             resolve(result);
           },
@@ -39,22 +39,13 @@ export class MailServiceService implements OnModuleInit {
   }
 
   async ping() {
-    // return new Promise((resolve, reject) => {
-    //   this.mailService
-    //     .send('ping', 'ping')
-
-    //     .subscribe((result) => {
-    //       resolve(result);
-    //     });
-    // });
-
     return await new Promise((resolve, reject) => {
       try {
         this.mailService.send('ping', 'ping').subscribe({
           next: (result) => {
             console.log(
               '🚀 ~ file: mail-service.service.ts:34 ~ MailServiceService ~ .subscribe ~ result:',
-              result,
+              result
             );
             resolve(result);
           },
@@ -68,19 +59,5 @@ export class MailServiceService implements OnModuleInit {
       }
       resolve('done');
     });
-
-    this.mailService
-      .send('ping', 'ping')
-
-      .subscribe((result) => {
-        console.log(
-          '🚀 ~ file: mail-service.service.ts:34 ~ MailServiceService ~ .subscribe ~ result:',
-          result,
-        );
-
-        return result;
-      });
-
-    return 'acsadc';
   }
 }
